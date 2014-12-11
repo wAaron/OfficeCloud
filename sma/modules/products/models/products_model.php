@@ -272,7 +272,7 @@ class Products_model extends CI_Model
 		if($this->db->update('products', $productData))
 		 {
 		 	// A&D
-		 	cloudPusher($productData);
+		 	cloudPusher($id,$productData);
 // 		 	print_r($productData);
 			return true;
 		} else {
