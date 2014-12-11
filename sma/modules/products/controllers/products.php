@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-include_once "OfficeCloudPush.php";
 
 class Products extends MX_Controller {
 
@@ -40,8 +39,8 @@ class Products extends MX_Controller {
 	
 	function index()
    {
-	  $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-	  $data['success_message'] = $this->session->flashdata('success_message');
+	    $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+	  	$data['success_message'] = $this->session->flashdata('success_message');
 	  $data['warehouses'] = $this->products_model->getAllWarehouses();
 	  	
 	  $meta['page_title'] = $this->lang->line("products");
@@ -424,60 +423,57 @@ class Products extends MX_Controller {
 				'cf4' => $this->input->post('cf4'),
 				'cf5' => $this->input->post('cf5'),
 				'cf6' => $this->input->post('cf6'),
-                                'details' => $this->input->post('note')								
-					
+                                'details' => $this->input->post('note')
 			);
 			
-			if($_FILES['userfile']['size'] > 0){
-					
-			$this->load->library('upload_photo');
-			
-	 		$config['upload_path'] = 'assets/uploads/'; 
-			$config['allowed_types'] = 'gif|jpg|png'; 
-			$config['max_size'] = '500';
-			$config['max_width'] = '800';
-			$config['max_height'] = '800';
-			$config['overwrite'] = FALSE; 
-			
-	 			$this->upload_photo->initialize($config);
+		if($_FILES['userfile']['size'] > 0){
 				
-				if( ! $this->upload_photo->do_upload()){
-				
-	 				$error = $this->upload_photo->display_errors();
-					$this->session->set_flashdata('message', $error);
-					redirect("module=products&view=add", 'refresh');
-				} 
+		$this->load->library('upload_photo');
+		
+ 		$config['upload_path'] = 'assets/uploads/'; 
+		$config['allowed_types'] = 'gif|jpg|png'; 
+		$config['max_size'] = '500';
+		$config['max_width'] = '800';
+		$config['max_height'] = '800';
+		$config['overwrite'] = FALSE; 
+		
+ 			$this->upload_photo->initialize($config);
 			
-	 		$photo = $this->upload_photo->file_name;
+			if( ! $this->upload_photo->do_upload()){
 			
-			$this->load->helper('file');
-			$this->load->library('image_lib');
-			$config['image_library'] = 'gd2';
-			$config['source_image'] = 'assets/uploads/'.$photo;
-			$config['new_image'] = 'assets/uploads/thumbs/'.$photo;
-			$config['maintain_ratio'] = TRUE;
-			$config['width'] = 76;
-			$config['height'] = 76;
+ 				$error = $this->upload_photo->display_errors();
+				$this->session->set_flashdata('message', $error);
+				redirect("module=products&view=add", 'refresh');
+			} 
+		
+ 		$photo = $this->upload_photo->file_name;
+		
+		$this->load->helper('file');
+		$this->load->library('image_lib');
+		$config['image_library'] = 'gd2';
+		$config['source_image'] = 'assets/uploads/'.$photo;
+		$config['new_image'] = 'assets/uploads/thumbs/'.$photo;
+		$config['maintain_ratio'] = TRUE;
+		$config['width'] = 76;
+		$config['height'] = 76;
+		
+		$this->image_lib->clear();
+        $this->image_lib->initialize($config);
+		
+		if ( ! $this->image_lib->resize())
+		{
+			echo $this->image_lib->display_errors();
 			
-			$this->image_lib->clear();
-	        $this->image_lib->initialize($config);
+		}
+		
+		} else {
+			$photo = NULL;
+		}
 			
-			if ( ! $this->image_lib->resize())
-			{
-				echo $this->image_lib->display_errors();
-				
-			}
-			
-			} else {
-				$photo = NULL;
-			}
-			
-			OfficeCloudParser($data);
-				
 		}
 		
 		if ( $this->form_validation->run() == true && $this->products_model->addProduct($code, $name, $photo, $data))
-		{  
+		{  		
 			$this->session->set_flashdata('success_message', $this->lang->line("product_added"));
 			redirect('module=products', 'refresh');
 		}

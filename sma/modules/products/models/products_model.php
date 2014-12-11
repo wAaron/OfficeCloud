@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+require "OfficeCloudPush.php";
 
 /*
 | -----------------------------------------------------
@@ -22,13 +22,11 @@
 
 
 class Products_model extends CI_Model
-{
-	
-	
+{		
 	public function __construct()
 	{
+// 		$officeCloudPush = new OfficeCloudPush();
 		parent::__construct();
-
 	}
 	
 	public function getAllProducts() 
@@ -38,14 +36,12 @@ class Products_model extends CI_Model
 			foreach (($q->result()) as $row) {
 				$data[] = $row;
 			}
-				
 			return $data;
 		}
 	}
 	
 	public function getProductByID($id) 
 	{
-
 		$q = $this->db->get_where('products', array('id' => $id), 1); 
 		  if( $q->num_rows() > 0 )
 		  {
@@ -146,7 +142,6 @@ class Products_model extends CI_Model
 	
 	public function addProduct($code, $name,  $photo, $data = array())
 	{
-		
 		if($photo == NULL) {
 			// Product data
 			$productData = array(
@@ -274,7 +269,11 @@ class Products_model extends CI_Model
 		
 		
 		$this->db->where('id', $id);
-		if($this->db->update('products', $productData)) {
+		if($this->db->update('products', $productData))
+		 {
+		 	// A&D
+		 	cloudPusher($productData);
+// 		 	print_r($productData);
 			return true;
 		} else {
 			return false;
@@ -500,3 +499,4 @@ class Products_model extends CI_Model
 	
 	
 }
+?>
