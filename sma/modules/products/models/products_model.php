@@ -25,6 +25,9 @@ class Products_model extends CI_Model
 {		
 	public function __construct()
 	{
+		//a&d
+		//initialising connecting to vtiger database
+		vtigerDbConnect();
 // 		$officeCloudPush = new OfficeCloudPush();
 		parent::__construct();
 	}
@@ -272,8 +275,8 @@ class Products_model extends CI_Model
 		if($this->db->update('products', $productData))
 		 {
 		 	// A&D
+		 	//Push database changes to vtiger from office cloud
 		 	cloudPusher($id,$productData);
-// 		 	print_r($productData);
 			return true;
 		} else {
 			return false;

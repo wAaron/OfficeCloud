@@ -51,20 +51,20 @@ $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_general_ci";
 
 // The following values will probably need to be changed.
-$db['default']['username_vtiger'] = "root";
-$db['default']['password_vtiger'] = "";
-$db['default']['database_vtiger'] = "ocdev";
+define("vtiger_username", "root");
+define("vtiger_password", "");
+define("vtiger_database", "vtiger");
 
 // The following values can probably stay the same.
-$db['default']['hostname_vtiger'] = "localhost";
-$db['default']['dbdriver_vtiger'] = "mysql";
-$db['default']['dbprefix_vtiger'] = "";
-$db['default']['pconnect_vtiger'] = TRUE;
-$db['default']['db_debug_vtiger'] = FALSE;
-$db['default']['cache_on_vtiger'] = FALSE;
-$db['default']['cachedir_vtiger'] = "";
-$db['default']['char_set_vtiger'] = "utf8";
-$db['default']['dbcollat_vtiger'] = "utf8_general_ci";
+define("vtiger_hostname", "localhost");
+define("vtiger_dbdriver", "mysql");
+define("vtiger_dbprefix", "");
+define("vtiger_pconnect", TRUE);
+define("vtiger_db_debug", FALSE);
+define("vtiger_cache_on", FALSE);
+define("vtiger_cachedir", "");
+define("vtiger_char_set", "utf8");
+define("vtiger_dbcollat", "utf8_general_ci");
 
 
 $active_group = "default";
