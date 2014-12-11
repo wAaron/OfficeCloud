@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Google Calendar Map</title>
+	<meta name="title" content="GoogleMap API Source Code Generator." />
+	<meta name="description" content="A way to view calendar events on a google map. Reading a public google calendar, it plots all the events on a map.  The map acts like a filter - you only see events that occur on the map canvas, which is great when there is a calendar with tons of events going on all over the place. " />
+	<link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" />
+	<link type="text/css" href="css/jsDatePick_ltr.min.css" rel="stylesheet" />
+	<link type="text/css" href="css/mapFilter.css" rel="stylesheet" />
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnM9zsz0nCcXljzggIrzsD8k_OQO6kcv0&sensor=false"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.slider.chad.js"></script>
+	<script type="text/javascript" src="js/jsDatePick.jquery.min.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tablesorter.pager.js"></script>
+	<script type="text/javascript" src="js/json2.js"></script>
+	<script type="text/javascript" src="js/detect_timezone.js"></script>
+	<script type="text/javascript" src="js/ba-debug.js"></script>
+	<script type="text/javascript" src="js/ui.tabs.js"></script>
+	<script type="text/javascript" src="js/cnMapFilter.js"></script>
+	<script type="text/javascript" src="js/cnMapFilterUI.js"></script>
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-2767105-1']);
+		_gaq.push(['_trackPageview']);
+	     
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = false;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	</script>
+</head>
+
+<body>
+	<div id="map_id"></div>
+
+	<!-- <a id='gcmMapLogo' href="http://chadnorwood.com/" title="Powered by Craft Beer"></a> -->
+	<!-- <div id="myHelp" style="display:none; float:left; text-align:left;" > -->
+	<!-- <div class='helpContainer transparent'>	
+		<h3>What is this?</h3>
+		<ol>
+Google Calendar Map (GCM) puts all events with a location from a google calendar on to a google map.  The map is a filter, You can
+ zoom in and move map around to only view events that occur on the map as you see it.  Additionally, you can use the date sliders to further filter events.
+		</ol>
+		<ol>
+Click on the big GCM in the top right view the <a href="http://chadnorwood.com/projects/gcm/">GCM Homepage</a> with more information.  
+Click on - above GCM to hide this drawer, Click again to open it.
+		</ol>
+	    <h3>Example Calendars:</h3>
+		<ol>
+			<li><a class="actionable" href="?gc=asa5k2phscdna68j9e5410v6mc@group.calendar.google.com">Trail Races (Canada)</a></li>
+			<li><a class="actionable" href="?ed=180&gc=dnr6osjdrtn4fqpf70ep8ck1rc%40group.calendar.google.com">Chad's Chicago: Summer Festivals and More</a></li>
+			<li><a class="actionable" href="?gc=jo0ubvoi1gutr95kdtl1245u3g@group.calendar.google.com">A New York Track Club</a><br></li>
+			<li><a class="actionable" href="?gc=webdog6@gmail.com">Sunset District Events Calendar (San Francisco)</a></li>
+			<li><a class="actionable" href="?gc=yvettebikesfortheworld@gmail.com">Collections (Bikes For The World)</a></li>
+			<li><a class="actionable" href="?ed=21&gc=webdog6@gmail.com,yvettebikesfortheworld@gmail.com,jo0ubvoi1gutr95kdtl1245u3g@group.calendar.google.com,dnr6osjdrtn4fqpf70ep8ck1rc@group.calendar.google.com,asa5k2phscdna68j9e5410v6mc@group.calendar.google.com">All 5 calendars above at once!</a> &lt;--- NEW !!! </li>
+			 
+			<li><a class="actionable" href="?ed=180&gc=m76pvgknm3n2st5l0nov1ei4gb0atipa@import.calendar.google.com">Chicago Beer Geeks</a></li>
+			<li><a class="actionable" href="?ed=180&u=https://www.google.com/calendar/feeds/edbd7jqqu7s83ndvv276mueeig%40group.calendar.google.com/public/basic">Aikido</a></li>
+			<li><a class="actionable" href="?ed=180&u=https://www.google.com/calendar/feeds/0ei0284so407vu24o7o0q5ares%40group.calendar.google.com/public/basic">Test</a></li>
+			
+		</ol>
+
+		<h3>How do I make it Go?</h3>
+		<ol>First, make your calendar public (if it ain't your calendar, ask owner to do it).</ol>
+		<ol>
+			<li> In the Google Calendar interface, locate "My Calendars" or "Other Calendars" lists on the left.</li>
+			<li> Hover over desired calendar, and click the arrow the appears. A menu will appear.</li>
+			<li> Click "Share this calendar"</li>
+			<li> Check "Make this calendar public"</li>
+			<li> Make sure "Share only my free/busy information" is unchecked.</li>
+			<li> Click "Save"</li>
+		</ol>
+		<ol>Second, find your Calendar's ID</ol>
+		<ol>
+			<li> In the Google Calendar interface, locate "My Calendars" or "Other Calendars" lists on the left.</li>
+			<li> Hover over desired calendar, and click the arrow the appears. A menu will appear.</li>
+			<li> Click "Calendar settings"</li>
+			<li> Look at the "Calendar Address" section of the screen, near XML, ICAL, HTML icons. </li>
+			<li> Copy string after "Calendar ID:" - it may be your email, or may look like vf3u7s6odj0r74q4lrnb730phk@group.calendar.google.com</li>
+			<li> NOTE: the calendar ID can also be extracted from the XML Feed.  For example, xxxx@group.calendar.google.com is the id for this XML Feed: 
+				https://www.google.com/calendar/feeds/xxxx@group.calendar.google.com/public/basic</li>
+		</ol>
+		<ol>Lastly, Paste the Google Calendar ID in the box above.  Optionally add more Calendar IDs, separated by spaces. Click "Add Calendar" .. you're off!</ol>
+		<p>.</p>
+	</div> -->
+</div>
+
+</body>
+</html>

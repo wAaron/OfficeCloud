@@ -1,0 +1,1 @@
+{"aaData":[["<a href=# onclick=\"showdetail('27','GetDeliveryDetail','GetDeliveryDetail')\">01 Aug 2014<\/a>","<a href=\/DeletePopUp\/Delivery\/27  data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"icomoon-icon-cancel tip\" title=\"Delete\"><\/span><\/a>"]]}

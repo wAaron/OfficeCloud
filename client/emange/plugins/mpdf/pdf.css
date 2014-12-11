@@ -1,0 +1,22 @@
+*{font-family:verdana; margin:0 auto; font-size:11px;}
+body { font-family: DejaVuSansCondensed, sans-serif; font-size: 11pt;  }
+table.responsive {  border:1px solid #2e2e2e; font-size:11px; background: whitesmoke;  border-collapse: collapse;  width:99%;  margin:0 auto;  margin-bottom:10px; margin-top:10px;}
+//table.responsive tr:hover {   background: lightsteelblue !important;}
+table.responsive th, table.responsive td {  border: 1px #2e2e2e solid;  padding: 0.2em;  padding-left:10px; vertical-align:top}
+table.responsive th {  background: gainsboro;  text-align: left;}
+table.responsive caption {  margin-left: inherit;  margin-right: inherit;}
+table.responsive tr:hover{background-color:#ddd;}
+table.responsive thead th:first-child, table.responsive tbody td:first-child, table.responsive tfoot th:first-child  {text-align: left;}
+
+.badge {
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 10.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #999999;
+}
