@@ -161,11 +161,11 @@ class Products_model extends CI_Model
 					'alert_quantity' => $data ['alert_quantity'],
 					'tax_rate' => $data ['tax_rate'],
 					'track_quantity' => $data ['track_quantity'],
-					'cf1' => $data ['cf1'],
-					'cf2' => $data ['cf2'],
-					'cf3' => $data ['cf3'],
-					'cf4' => $data ['cf4'],
-					'cf5' => $data ['cf5'],
+					'product_website' => $data ['product_website'],
+					'product_manufacturer' => $data ['product_manufacturer'],
+					'product_commission' => $data ['product_commission'],
+					'sales_start' => $data ['sales_start'],
+					'sales_end' => $data ['sales_end'],
 					'cf6' => $data ['cf6'],
 					'details' => $data ['details'] 
 			);
@@ -184,11 +184,11 @@ class Products_model extends CI_Model
 					'alert_quantity' => $data ['alert_quantity'],
 					'tax_rate' => $data ['tax_rate'],
 					'track_quantity' => $data ['track_quantity'],
-					'cf1' => $data ['cf1'],
-					'cf2' => $data ['cf2'],
-					'cf3' => $data ['cf3'],
-					'cf4' => $data ['cf4'],
-					'cf5' => $data ['cf5'],
+					'product_website' => $data ['product_website'],
+					'product_manufacturer' => $data ['product_manufacturer'],
+					'product_commission' => $data ['product_commission'],
+					'sales_start' => $data ['sales_start'],
+					'sales_end' => $data ['sales_end'],
 					'cf6' => $data ['cf6'],
 					'details' => $data ['details'],
 					'image' => $photo 
@@ -288,20 +288,20 @@ class Products_model extends CI_Model
 		}
 	}
 	public function deleteProduct($id)
-	{	
-		getProductCode($id);
-// 		if ($this->db->delete ( 'products', array (
-// 				'id' => $id 
-// 		) ) && $this->db->delete ( 'warehouses_products', array (
-// 				'product_id' => $id 
-// 		) ))
-// 		{
-// 			//Push database delitions to vtiger from office cloud
-// 			//deleteProductPush($id);
-// 			return true;
-// 		}
-// 		return FALSE;
-return true;
+	{
+		getProductCode ( $id );
+		// if ($this->db->delete ( 'products', array (
+		// 'id' => $id
+		// ) ) && $this->db->delete ( 'warehouses_products', array (
+		// 'product_id' => $id
+		// ) ))
+		// {
+		// //Push database delitions to vtiger from office cloud
+		// //deleteProductPush($id);
+		// return true;
+		// }
+		// return FALSE;
+		return true;
 	}
 	public function getAllCategories()
 	{

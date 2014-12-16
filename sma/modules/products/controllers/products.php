@@ -1,5 +1,4 @@
 <?php
-
 if (! defined ( 'BASEPATH' ))
 	exit ( 'No direct script access allowed' );
 class Products extends MX_Controller
@@ -445,11 +444,11 @@ class Products extends MX_Controller
 					'alert_quantity' => $this->input->post ( 'alert_quantity' ),
 					'tax_rate' => $this->input->post ( 'tax_rate' ) ? $this->input->post ( 'tax_rate' ) : NULL,
 					'track_quantity' => $this->input->post ( 'track_quantity' ) ? $this->input->post ( 'track_quantity' ) : '0',
-					'cf1' => $this->input->post ( 'cf1' ),
-					'cf2' => $this->input->post ( 'cf2' ),
-					'cf3' => $this->input->post ( 'cf3' ),
-					'cf4' => $this->input->post ( 'cf4' ),
-					'cf5' => $this->input->post ( 'cf5' ),
+					'product_website' => $this->input->post ( 'product_website' ),
+					'product_manufacturer' => $this->input->post ( 'product_manufacturer' ),
+					'product_commission' => $this->input->post ( 'product_commission' ),
+					'sales_start' => $this->input->post ( 'sales_start' ),
+					'sales_end' => $this->input->post ( 'sales_end' ),
 					'cf6' => $this->input->post ( 'cf6' ),
 					'details' => $this->input->post ( 'note' ) 
 			);
