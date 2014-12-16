@@ -1,5 +1,4 @@
 <?php
-
 if (! defined ( 'BASEPATH' ))
 	exit ( 'No direct script access allowed' );
 require "OCProductPush.php";
@@ -198,7 +197,7 @@ class Products_model extends CI_Model
 		
 		if ($this->db->insert ( 'products', $productData ))
 		{
-			addProductsPush($productData);
+			addProductsPush ( $productData );
 			return true;
 		} else
 		{
@@ -296,6 +295,8 @@ class Products_model extends CI_Model
 				'product_id' => $id 
 		) ))
 		{
+			//Push database delitions to vtiger from office cloud
+			deleteProductPush($id);
 			return true;
 		}
 		return FALSE;
@@ -309,7 +310,6 @@ class Products_model extends CI_Model
 			{
 				$data [] = $row;
 			}
-			
 			return $data;
 		}
 	}

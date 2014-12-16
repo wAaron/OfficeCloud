@@ -52,7 +52,14 @@ function editProductsPush($productID, $data = array())
 	$details = $data ['details'];
 	
 	/* Pushing product update to vtiger from office cloud */
-	$sql = "UPDATE vtiger_products SET productname='$name' WHERE productid=6";
+	$sql = "UPDATE vtiger_products SET product_no='$code'";
+	if (mysqli_query ( $vtigerConnection, $sql ))
+	{
+		echo "Record updated successfully";
+	}	
+	
+	/* Pushing product update to vtiger from office cloud */
+	$sql = "UPDATE vtiger_products SET productname='$name' WHERE product_no='$code'";
 	if (mysqli_query ( $vtigerConnection, $sql ))
 	{
 		echo "Record updated successfully";
@@ -101,6 +108,24 @@ VALUES ('$code','$name','$unit','$price')";
 	}
 	mysqli_close ( $vtigerConnection );
 	
+	return true;
+}
+
+function deleteProductPush($id)
+{
+	GLOBAL $vtigerConnection;
+	print_r ( $data );
+
+	$code = mysql_real_escape_string ( $data ['code'] );
+
+	$sql = "DELETE FROM vtiger_products WHERE product_no='$code'";
+
+	if (mysqli_query ( $vtigerConnection, $sql ))
+	{
+		echo "Record updated successfully";
+	}
+	mysqli_close ($vtigerConnection);
+
 	return true;
 }
 
