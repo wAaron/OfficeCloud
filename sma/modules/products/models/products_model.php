@@ -289,16 +289,16 @@ class Products_model extends CI_Model
 	}
 	public function deleteProduct($id)
 	{
-		getProductCode ( $id );
+		$code = getProductCode ( $id );
 		if ($this->db->delete ( 'products', array (
-		'id' => $id
+				'id' => $id 
 		) ) && $this->db->delete ( 'warehouses_products', array (
-		'product_id' => $id
+				'product_id' => $id 
 		) ))
 		{
-		//Push database delitions to vtiger from office cloud
-		//deleteProductPush($id);
-		return true;
+			//Push database deletion to vtiger from office cloud
+			deleteProductPush($code);
+			return true;
 		}
 		return FALSE;
 	}
@@ -497,7 +497,6 @@ class Products_model extends CI_Model
 		{
 			return true;
 		}
-		
 		return false;
 	}
 	public function products_count($category_id)
