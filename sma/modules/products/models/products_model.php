@@ -289,19 +289,18 @@ class Products_model extends CI_Model
 	}
 	public function deleteProduct($id)
 	{
-		getProductCode ( $id );
-		// if ($this->db->delete ( 'products', array (
-		// 'id' => $id
-		// ) ) && $this->db->delete ( 'warehouses_products', array (
-		// 'product_id' => $id
-		// ) ))
-		// {
-		// //Push database delitions to vtiger from office cloud
-		// //deleteProductPush($id);
-		// return true;
-		// }
-		// return FALSE;
-		return true;
+		$code = getProductCode ( $id );
+		if ($this->db->delete ( 'products', array (
+				'id' => $id 
+		) ) && $this->db->delete ( 'warehouses_products', array (
+				'product_id' => $id 
+		) ))
+		{
+			//Push database deletion to vtiger from office cloud
+			deleteProductPush($code);
+			return true;
+		}
+		return FALSE;
 	}
 	public function getAllCategories()
 	{
@@ -498,7 +497,6 @@ class Products_model extends CI_Model
 		{
 			return true;
 		}
-		
 		return false;
 	}
 	public function products_count($category_id)

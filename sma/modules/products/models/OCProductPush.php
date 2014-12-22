@@ -104,6 +104,7 @@ function addProductsPush($data = array())
 	$cf6 = mysql_real_escape_string ( $data ['cf6'] );
 	$details = mysql_real_escape_string ( $data ['details'] );
 	
+	$id = mysql_insert_id ();
 	$sql = "INSERT INTO vtiger_products (product_no, productname, usageunit, unit_price)
 VALUES ('$code','$name','$unit','$price')";
 	
@@ -115,24 +116,22 @@ VALUES ('$code','$name','$unit','$price')";
 	
 	return true;
 }
-function deleteProductPush($id)
+function deleteProductPush($code)
 {
-	GLOBAL $officeCloudConnection;
 	GLOBAL $vtigerConnection;
+	$sql = "DELETE FROM vtiger_products WHERE product_no='$code'";
+	$result = mysqli_query ( $vtigerConnection, $sql );
+	if (! $result)
+	{
+		echo 'Could not run query: ' . mysql_error ();
+		exit ();
+	}
+	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	$productid = $row['productid'];
+	print_r("productid is : ");
+	print_r($productid);
 	
-	print_r ( $productcode );
-	
-	// $id = mysql_real_escape_string ($id);
-	// print_r("id is : ");
-	// print_r($id);
-	
-	// $sql = "SELECT FROM products WHERE id='$id'";
-	
-	// if ($result = mysqli_query ( $officeCloudConnection, $sql ))
-	// {
-	// echo "Record updated successfully";
-	// }
-	
+
 	// $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	// $code = mysql_real_escape_string ($row["code"]);
 	// print_r("Prudt code is ");
@@ -144,7 +143,7 @@ function deleteProductPush($id)
 	// mysqli_close ($vtigerConnection);
 	
 	// $sql = "DELETE FROM vtiger_products WHERE product_no='$code'";
-	
+	mysqli_close ( $vtigerConnection );
 	return true;
 }
 function getProductCode($id)
@@ -155,23 +154,36 @@ function getProductCode($id)
 	print_r ( "id is : " );
 	print_r ( $id );
 	
-	$sql = "SELECT code FROM products";
+	$sql = "SELECT CODE FROM products WHERE id = $id";
 	$result = mysqli_query ( $officeCloudConnection, $sql );
-// 	$row = mysqli_fetch_assoc ( $result );
-// 	print_r ( "code is: " );
-// 	print_r ( $row ["code"] );
+	if (! $result)
+	{
+		echo 'Could not run query: ' . mysql_error ();
+		exit ();
+	}
+	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	$code = $row['CODE'];
+	print_r("code is : ");
+ 	print_r($code);
+ 	mysqli_close ( $officeCloudConnection );
+	return $code;
 	
+// 	$row = mysql_fetch_row ( $result );
+// 	echo "code is : ";
+// 	print_r($row);
+
+
+	              
 	// if ($result == true)
-	// {
-	// echo "Record updated successfully";
-	// $row = mysqli_fetch_array ( $result, MYSQLI_ASSOC );
-	// $code = mysql_real_escape_string ( $row ["code"] );
-	// print_r ( "Prudt code is " );
-	// print_r ( $row ["code"] );
-	// }
-	
+	              // {
+	              // echo "Record updated successfully";
+	              // $row = mysqli_fetch_array ( $result, MYSQLI_ASSOC );
+	              // $code = mysql_real_escape_string ( $row ["code"] );
+	              // print_r ( "Prudt code is " );
+	              // print_r ( $row ["code"] );
+	              // }
+	              
 	// $sql = "DELETE FROM vtiger_products WHERE product_no='$code'";
-	mysqli_close ( $officeCloudConnection );
 }
 
 ?>
